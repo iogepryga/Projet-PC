@@ -27,6 +27,7 @@ public class Producer extends Thread {
 		for(int i = 0; i < nbaproduire; i++) {
 			try {
 				buffer.put(new Message(((int)getId()),"message nb " + i + " ."));
+				System.out.println("Producer " + getId() + " met \"message nb " + i + "\" dans le buffer");
 				sleep(prodTime);
 			} catch (InterruptedException e) {
 				e.printStackTrace();

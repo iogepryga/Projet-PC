@@ -11,7 +11,7 @@ public class TestProdCons {
 	public static void main(String args[]) throws InterruptedException {
 		Properties properties = new Properties();
 		try {
-			properties.loadFromXML(new FileInputStream("src/prodcons/v1/options.xml"));
+			properties.loadFromXML(new FileInputStream("src/prodcons/v2/options.xml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

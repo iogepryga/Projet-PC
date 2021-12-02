@@ -11,7 +11,7 @@ public class TestProdCons {
 	public static void main(String args[]) throws InterruptedException {
 		Properties properties = new Properties();
 		try {
-			properties.loadFromXML(new FileInputStream("src/prodcons/v1/options.xml"));
+			properties.loadFromXML(new FileInputStream("src/prodcons/v3/options.xml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -20,9 +20,7 @@ public class TestProdCons {
 		IProdConsBuffer buffer = new ProdConsBuffer(properties);
 		int nProd = Integer.parseInt(properties.getProperty("nProd", "10"));
 		int nCons = Integer.parseInt(properties.getProperty("nCons", "10"));
-//		Producer[] producers = new Producer[Integer.parseInt(properties.getProperty("nProd","10"))];
-//		Consumer[] consumers = new Consumer[Integer.parseInt(properties.getProperty("nCons","10"))];
-
+		
 		Consumer[] consumers = new Consumer[nCons];
 		Producer[] producers = new Producer[nProd];
 

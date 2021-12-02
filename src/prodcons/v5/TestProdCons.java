@@ -1,4 +1,4 @@
-package prodcons.v1;
+package prodcons.v5;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,7 +11,7 @@ public class TestProdCons {
 	public static void main(String args[]) throws InterruptedException {
 		Properties properties = new Properties();
 		try {
-			properties.loadFromXML(new FileInputStream("src/prodcons/v1/options.xml"));
+			properties.loadFromXML(new FileInputStream("src/prodcons/v5/options.xml"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -20,7 +20,7 @@ public class TestProdCons {
 		IProdConsBuffer buffer = new ProdConsBuffer(properties);
 		int nProd = Integer.parseInt(properties.getProperty("nProd", "10"));
 		int nCons = Integer.parseInt(properties.getProperty("nCons", "10"));
-
+		
 		Consumer[] consumers = new Consumer[nCons];
 		Producer[] producers = new Producer[nProd];
 
@@ -41,10 +41,22 @@ public class TestProdCons {
 
 		for (Producer P : producers)
 			P.join();
+
 		System.out.println("Producer tous arrété.");
 
 		while (buffer.nmsg() > 0) {
 		}
+
 		System.out.println("Plus de message dans le buffer.");
+
+		for (Consumer C : consumers) {
+//			C.continuee = false;
+			while (C.isProcessing()) {
+			}
+			C.interrupt();
+			C.join();
+		}
+
+		System.out.println("Programme terminé.");
 	}
 }

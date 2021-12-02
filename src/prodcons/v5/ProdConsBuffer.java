@@ -1,4 +1,4 @@
-package prodcons.v3;
+package prodcons.v5;
 
 import java.util.Properties;
 import java.util.concurrent.Semaphore;
@@ -69,7 +69,7 @@ public class ProdConsBuffer implements IProdConsBuffer {
 		if (estvide())
 			return 0;
 		else {
-			if (tete < queue)
+			if (tete <= queue)
 				return queue - tete + 1;
 			else
 				return buffer.length - (tete - queue);
@@ -87,5 +87,39 @@ public class ProdConsBuffer implements IProdConsBuffer {
 
 	private boolean estvide() {
 		return tete == -1;
+	}
+
+	@Override
+	public Message[] get(int k) throws InterruptedException {
+//		if (k <= 0) {
+//			Message[] tmp = new Message[1];
+//			tmp[0] = new Message(0, "k negatif");
+//			return tmp;
+//		}
+		acce.acquire();
+		
+//		System.out.println(nmsg());
+
+		while (nmsg() < k) {
+			acce.release();
+			acce.acquire();
+		}
+		
+		System.out.println(nmsg());
+
+		Message[] tmp = new Message[k];
+		try {
+			for (int i = 0; i < k; i++) {
+				tmp[i] = buffer[tete];
+				buffer[tete] = null;
+				if (tete == queue)
+					tete = -1;
+				else
+					tete = (tete + 1) % buffer.length;
+			}
+		} finally {
+			acce.release();
+		}
+		return tmp;
 	}
 }
