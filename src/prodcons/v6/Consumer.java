@@ -1,4 +1,4 @@
-package prodcons.v5;
+package prodcons.v6;
 
 import java.util.Properties;
 import java.util.Random;
@@ -37,7 +37,8 @@ public class Consumer extends Thread {
 				processing = false;
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
+//				e.printStackTrace();
+				System.out.println("Consumer " + this.getId() + " arrété.");
 				return;
 			}
 		}
