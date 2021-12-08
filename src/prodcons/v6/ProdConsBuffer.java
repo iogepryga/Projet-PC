@@ -38,6 +38,7 @@ public class ProdConsBuffer implements IProdConsBuffer {
 
 			buffer[queue] = m;
 			cpt++;
+			System.out.println("+++P" + m.from + " place \"" + m.msg + "\". (" + (nmsg()-1) + "->" + nmsg() + ")");
 		} finally {
 			acce.release();
 		}
@@ -66,6 +67,8 @@ public class ProdConsBuffer implements IProdConsBuffer {
 					tete = -1;
 				else
 					tete = (tete + 1) % buffer.length;
+				System.out.println(
+						"------------------------------------------M \"" + msg.msg + "\" de " + msg.from + " retiré. (" + (nmsg()+1) + "->" + nmsg() + ")");
 			}
 		} finally {
 			acce.release();
@@ -118,7 +121,7 @@ public class ProdConsBuffer implements IProdConsBuffer {
 			acce.acquire();
 		}
 
-		System.out.println(nmsg());
+//		System.out.println(nmsg());
 
 		Message[] tmp = new Message[k];
 		try {
@@ -138,6 +141,8 @@ public class ProdConsBuffer implements IProdConsBuffer {
 						tete = -1;
 					else
 						tete = (tete + 1) % buffer.length;
+					System.out.println("------------------------------------------M \"" + tmp[i].msg + "\" de "
+							+ tmp[i].from + " retiré. (" + (nmsg()+1) + "->" + nmsg() + ")");
 				}
 			}
 		} finally {
@@ -165,6 +170,7 @@ public class ProdConsBuffer implements IProdConsBuffer {
 			m.setN(n);
 			buffer[queue] = m;
 			cpt++;
+			System.out.println("+++P" + m.from + " place \"" + m.msg + "\". (" + (nmsg()-n) + "->" + nmsg() + ")");
 			while (m.getN() > 0) {
 				acce.release();
 				acce.acquire();

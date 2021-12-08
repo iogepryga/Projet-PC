@@ -23,16 +23,16 @@ public class Producer extends Thread {
 	
 	@Override
 	public void run() {
-		System.out.println("Producer " + this.getId() + " lancé.");
+		System.out.println("+P" + this.getId() + " lancé.");
 		for(int i = 0; i < nbaproduire; i++) {
 			try {
+				System.out.println("++P" + getId() + " veut placer \"" + i + "\"");
 				buffer.put(new Message(((int)getId()),"" + i));
-				System.out.println("Producer " + getId() + " met \"" + i + "\" dans le buffer");
 				sleep(prodTime);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 		}
-		System.out.println("Producer " + getId() + " a finit de produire.");
+		System.out.println("Producer " + getId() + " a finit.");
 	}
 }

@@ -10,6 +10,6 @@ public class Message {
 	}
 
 	public String toString() {
-		return "De " + from + " : " + msg;
+		return "\"" + msg + "\" de " + from + ".";
 	}
 }

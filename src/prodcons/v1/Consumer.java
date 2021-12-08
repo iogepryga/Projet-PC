@@ -17,11 +17,12 @@ public class Consumer extends Thread {
 	
 	@Override
 	public void run() {
-		System.out.println("Consumer " + this.getId() + " lancé.");
+		System.out.println("----------------------------------------C " + this.getId() + " lancé.");
 		while(true) {
 			try {
+				System.out.println("-----------------------------------------C"+ this.getId() + " veut lire.");
 				Message msg = buffer.get();
-				System.out.println("Lu par " + this.getId() + " : " + msg.toString());
+				System.out.println("-------------------------------------------C" + this.getId() + " a lu : " + msg.toString());
 				sleep(consTime);
 			} catch (InterruptedException e) {
 				e.printStackTrace();

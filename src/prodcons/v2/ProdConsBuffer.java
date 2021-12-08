@@ -28,6 +28,7 @@ public class ProdConsBuffer implements IProdConsBuffer {
 			queue = (queue + 1) % buffer.length;
 		buffer[queue] = m;
 		cpt++;
+		System.out.println("+++P" + m.from + " place \"" + m.msg + "\". (" + (nmsg()-1) + "->" + nmsg() + ")");
 		notifyAll();
 	}
 
@@ -40,6 +41,7 @@ public class ProdConsBuffer implements IProdConsBuffer {
 			tete = -1;
 		else
 			tete = (tete + 1) % buffer.length;
+		System.out.println("------------------------------------------M \"" + msg.msg + "\" de " + msg.from + " retiré. (" + (nmsg()+1) + "->" + nmsg() + ")");
 		notifyAll();
 		return msg;
 	}
@@ -49,7 +51,7 @@ public class ProdConsBuffer implements IProdConsBuffer {
 		if (estvide())
 			return 0;
 		else {
-			if (tete < queue)
+			if (tete <= queue)
 				return queue - tete + 1;
 			else
 				return buffer.length - (tete - queue);

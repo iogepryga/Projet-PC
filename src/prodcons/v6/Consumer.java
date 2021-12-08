@@ -25,20 +25,31 @@ public class Consumer extends Thread {
 		System.out.println("Consumer " + this.getId() + " lancé.");
 		while(true) {
 			try {
-				int k = 1 + rand.nextInt(4);
-				System.out.println("Consumer " + this.getId() + " veut lire " + k + " messages.");
-				Message[] msg = buffer.get(k);
-				processing = true;
-				String tmp = "";
-				for(int m = 0 ; m < msg.length ; m++)
-					tmp += "Consumer " + this.getId() + " a lu : \"" + msg[m].toString() + "\".\n";
-				System.out.print(tmp);
-				sleep(consTime);
-				processing = false;
+				if (rand.nextInt(2) == 0) {
+					int k = 1 + rand.nextInt(4);
+					System.out.println("-----------------------------------------C" + this.getId() + " veut lire " + k
+							+ " messages.");
+					Message[] msg = buffer.get(k);
+					processing = true;
+					String tmp = "";
+					for (int m = 0; m < msg.length; m++)
+						tmp += "-------------------------------------------C" + this.getId() + " a lu : "
+								+ msg[m].toString() + "\n";
+					System.out.print(tmp);
+					sleep(consTime);
+					processing = false;
+				} else {
+					System.out.println("-----------------------------------------C"+ this.getId() + " veut lire.");
+					Message msg = buffer.get();
+					processing = true;
+					System.out.println("-------------------------------------------C" + this.getId() + " a lu : " + msg.toString());
+					sleep(consTime);
+					processing = false;
+				}
 			} catch (InterruptedException e) {
 				// TODO Auto-generated catch block
-//				e.printStackTrace();
-				System.out.println("Consumer " + this.getId() + " arrété.");
+				e.printStackTrace();
+				System.out.println("----------------------------------------C " + this.getId() + " arrété.");
 				return;
 			}
 		}
