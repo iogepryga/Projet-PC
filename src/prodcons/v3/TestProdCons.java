@@ -45,6 +45,8 @@ public class TestProdCons {
 		System.out.println("Producer tous arrété.");
 
 		while (buffer.nmsg() > 0) {
+			System.out.println("Il reste " + buffer.nmsg() + " messages dans le buffer.");
+			Thread.sleep(1000);
 		}
 
 		System.out.println("Plus de message dans le buffer.");

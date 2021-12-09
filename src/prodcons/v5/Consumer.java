@@ -26,7 +26,7 @@ public class Consumer extends Thread {
 		while (true) {
 			try {
 				if (rand.nextInt(2) == 0) {
-					int k = 1 + rand.nextInt(4);
+					int k = 2 + rand.nextInt(4);
 					System.out.println("-----------------------------------------C" + this.getId() + " veut lire " + k
 							+ " messages.");
 					Message[] msg = buffer.get(k);
